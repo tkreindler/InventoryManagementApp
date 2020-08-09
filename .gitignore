@@ -1,0 +1,9 @@
+# files containing sensistive information
+InventoryManagement/Extensions/DebugLoginInfo.swift
+
+# macos system files
+.DS_Store
+
+# Breakpoints and other user-specific nonsense
+InventoryManagement.xcodeproj/project.xcworkspace/xcuserdata/
+InventoryManagement.xcodeproj/xcuserdata/
