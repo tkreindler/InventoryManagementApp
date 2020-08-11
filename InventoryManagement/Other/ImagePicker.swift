@@ -11,10 +11,13 @@ import SwiftUI
 struct ImagePickerAndUploader: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentationMode
     @Binding var imageURL: String
+    var sourceType: UIImagePickerController.SourceType
     static private let imgur = ImgurUploader(clientID: DebugLoginInfo.imgurClientId)
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePickerAndUploader>) -> UIImagePickerController {
         let picker = UIImagePickerController()
+        picker.sourceType = self.sourceType
+        picker.mediaTypes = ["public.image"]
         picker.delegate = context.coordinator
         return picker
     }

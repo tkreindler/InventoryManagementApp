@@ -24,6 +24,9 @@ struct NewTypeView: View {
     
     @State var isPresentingScanner = false
     
+    @State var showingActionSheet = false
+    @State var cameraOrPhotos: UIImagePickerController.SourceType = .camera
+    
     var body: some View {
         VStack {
             HStack {
@@ -95,6 +98,15 @@ struct NewTypeView: View {
                     }
                     .buttonStyle(BorderlessButtonStyle())
                     .padding(.bottom)
+                    .sheet(isPresented: $isPresentingScanner) {
+                        CBScanner(supportBarcode: [.ean13])
+                            .interval(delay: 2.5)
+                            .found() {
+                                code in
+                                self.upc = code
+                                self.isPresentingScanner = false
+                            }
+                    }
                 }
                 Section(header: Text("Optional").font(.system(size: 20))) {
                     HStack {
@@ -105,11 +117,28 @@ struct NewTypeView: View {
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                     }
                     Button(action: {
-                        self.showingImagePicker = true
+                        self.showingActionSheet = true
                     }) {
                         Text("Upload an image to imgur")
                     }
                     .padding(.bottom, self.keyboardHeight)
+                    .actionSheet(isPresented: $showingActionSheet) {
+                        ActionSheet(title: Text("Choose where to upload from"), buttons: [
+                            .default(Text("Camera")) {
+                                self.cameraOrPhotos = .camera
+                                self.showingImagePicker = true
+                            },
+                            .default(Text("Photos Library")) {
+                                self.cameraOrPhotos = .photoLibrary
+                                self.showingImagePicker = true
+                            },
+                            .cancel()
+                        ])
+                    }
+                    .sheet(isPresented: $showingImagePicker) {
+                        // image picker
+                        ImagePickerAndUploader(imageURL: self.$imageURL, sourceType: self.cameraOrPhotos)
+                    }
                 }
             }
             .padding()
@@ -117,23 +146,6 @@ struct NewTypeView: View {
             keyboardHeight in
             self.keyboardHeight = keyboardHeight
         }
-        .sheet(isPresented: $showingImagePicker) {
-            // image picker
-            ImagePickerAndUploader(imageURL: self.$imageURL)
         }
-        }
-        .sheet(isPresented: $isPresentingScanner) {
-            self.scannerSheet
-        }
-    }
-    
-    var scannerSheet : some View {
-        CBScanner(supportBarcode: [.ean13])
-            .interval(delay: 2.5)
-            .found() {
-                code in
-                self.upc = code
-                self.isPresentingScanner = false
-            }
     }
 }
