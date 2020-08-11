@@ -31,6 +31,8 @@ struct EditingTypeView: View {
     @State var showingActionSheet = false
     @State var cameraOrPhotos: UIImagePickerController.SourceType = .camera
     
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
         VStack {
             scrolling
@@ -122,6 +124,29 @@ struct EditingTypeView: View {
                     ImagePickerAndUploader(imageURL: self.$imageURL, sourceType: self.cameraOrPhotos)
                 }
             }
+            Section(header: Text("DANGER ZONE").font(.system(size: 20)).padding(.top)) {
+                Button(action: {
+                    self.httpManager.deleteItemType(upc: self.itemType.upc) {
+                        responseStatus in
+                        if responseStatus / 100 == 2 {
+                            DispatchQueue.main.async {
+                                // go back to item type
+                                // TODO this doesn't work
+                                self.showingEditTypePopup = false
+                                DispatchQueue.main.async {
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }
+                            }
+                        } else {
+                            print("Error deleting item with status code \(responseStatus)")
+                        }
+                    }
+                }) {
+                    Text("Delete Item")
+                }
+                .padding(.bottom, keyboardHeight * 0.8)
+            }
+            .padding(.top, 100)
         }
         .padding()
         .onReceive(keyboardHeightPublisher) {

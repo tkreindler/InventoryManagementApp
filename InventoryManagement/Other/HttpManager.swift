@@ -626,7 +626,39 @@ class HttpManager : ObservableObject {
     
     /// send a put request to the item with a given id
     func deleteItem(id: Int64, sender: @escaping (Int) -> Void) {
-        let url = URL(string: "\(DebugLoginInfo.baseURL)/items/id/\(id)").unsafelyUnwrapped
+        let url = URL(string: "\(DebugLoginInfo.baseURL)/items/id/\(id)")!
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        
+        // send asynchronous http request
+        URLSession.shared.dataTask(with: request) { (_, response, _) in
+            // unwrap all values and do assertions
+            guard let response = response as? HTTPURLResponse else {
+                return
+            }
+            
+            guard response.statusCode != 401 else {
+                print("Received unauthorized response, going back to login page.")
+
+                // switch back to main page
+                DispatchQueue.main.async {
+                    // set the login status
+                    self.loginStatus = .NotAttempted
+                    self.postAuth()
+                }
+                return
+            }
+            
+            // send value back to sender
+            sender(response.statusCode)
+            
+        }.resume()
+    }
+    
+    /// send a put request to the item with a given id
+    func deleteItemType(upc: Int64, sender: @escaping (Int) -> Void) {
+        let url = URL(string: "\(DebugLoginInfo.baseURL)/itemtypes/\(upc)")!
         
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6ACC65F824E2344D00F5ACF8 /* EditingTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACC65F724E2344D00F5ACF8 /* EditingTypeView.swift */; };
+		6ACC65FA24E23D7500F5ACF8 /* EditingItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACC65F924E23D7500F5ACF8 /* EditingItemView.swift */; };
 		6ACCD2D424E219F70015DEB7 /* CarBode in Frameworks */ = {isa = PBXBuildFile; productRef = 6ACCD2D324E219F70015DEB7 /* CarBode */; };
 		6ACCD2D624E221030015DEB7 /* NewItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACCD2D524E221030015DEB7 /* NewItemView.swift */; };
 		6ACCD2D824E2248E0015DEB7 /* NewTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACCD2D724E2248E0015DEB7 /* NewTypeView.swift */; };
@@ -67,6 +68,7 @@
 
 /* Begin PBXFileReference section */
 		6ACC65F724E2344D00F5ACF8 /* EditingTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingTypeView.swift; sourceTree = "<group>"; };
+		6ACC65F924E23D7500F5ACF8 /* EditingItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingItemView.swift; sourceTree = "<group>"; };
 		6ACCD2D524E221030015DEB7 /* NewItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemView.swift; sourceTree = "<group>"; };
 		6ACCD2D724E2248E0015DEB7 /* NewTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTypeView.swift; sourceTree = "<group>"; };
 		A22E02D624C8C1DF0028F39F /* ItemDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailedView.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				6ACCD2D524E221030015DEB7 /* NewItemView.swift */,
 				6ACCD2D724E2248E0015DEB7 /* NewTypeView.swift */,
 				6ACC65F724E2344D00F5ACF8 /* EditingTypeView.swift */,
+				6ACC65F924E23D7500F5ACF8 /* EditingItemView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				A25EE56F24C8B3D200D4084D /* FormatNumbers.swift in Sources */,
 				A2972D0F24C25CA6000B359A /* LoginStatus.swift in Sources */,
 				A2BA543E24D0F26300FC2A87 /* URLSessionOperations.swift in Sources */,
+				6ACC65FA24E23D7500F5ACF8 /* EditingItemView.swift in Sources */,
 				A27C9B2F24C7464300B0582B /* Item.swift in Sources */,
 				A265BD3624C768980096DD08 /* KeyboardAwareModifier.swift in Sources */,
 				A2BA544124D0F26300FC2A87 /* AsynchronousOperation.swift in Sources */,
