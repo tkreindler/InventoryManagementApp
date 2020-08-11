@@ -143,7 +143,6 @@ struct ItemDetailedView: View {
     
     var scannerSheet : some View {
         CBScanner(supportBarcode: [.qr])
-            .torchLight(isOn: true)
             .interval(delay: 2.5)
             .found() {
                 code in

@@ -37,7 +37,6 @@ struct ScannerTabView: View {
                     }
                     if showingFocused == false {
                         CBScanner(supportBarcode: [.qr])
-                            .torchLight(isOn: true)
                             .interval(delay: 2.5) //Event will trigger every 5 seconds
                             .found() {
                                 code in
