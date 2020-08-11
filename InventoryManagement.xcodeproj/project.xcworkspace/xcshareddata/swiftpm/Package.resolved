@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "ImgurAnonymousAPI",
+        "repositoryURL": "https://github.com/tkreind/ImgurAnonymousAPI",
+        "state": {
+          "branch": "master",
+          "revision": "05f25ceed0dcedd1aa90694788c92c8acda947d4",
+          "version": null
+        }
+      },
+      {
         "package": "SDWebImage",
         "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
         "state": {
@@ -26,6 +35,15 @@
           "branch": null,
           "revision": "4c7f169e39bc35d6b80d42b8eb8301bee9cd0907",
           "version": "1.5.0"
+        }
+      },
+      {
+        "package": "SwiftKeychainWrapper",
+        "repositoryURL": "https://github.com/adincebic/SwiftKeychainWrapper",
+        "state": {
+          "branch": "spmsupport",
+          "revision": "0afa366c3aca2b4d0fc22e8c3c2c480f79749de8",
+          "version": null
         }
       }
     ]

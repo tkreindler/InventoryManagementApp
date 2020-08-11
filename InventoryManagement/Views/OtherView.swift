@@ -8,6 +8,7 @@
 
 import SwiftUI
 import PDFKit
+import SwiftKeychainWrapper
 
 struct OtherView: View {
     @ObservedObject var httpManager: HttpManager

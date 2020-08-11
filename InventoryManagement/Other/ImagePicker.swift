@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import ImgurAnonymousAPI
 
 struct ImagePickerAndUploader: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentationMode
