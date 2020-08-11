@@ -146,7 +146,7 @@ internal final class SavePHAsset: AsynchronousOperation<ImageFile> {
 
         let status = PHPhotoLibrary.authorizationStatus()
         switch status {
-        case .denied, .notDetermined, .restricted:
+        case .denied, .notDetermined, .restricted, .limited:
             return false
         case .authorized:
             return true

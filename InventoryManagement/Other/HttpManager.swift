@@ -102,11 +102,12 @@ class HttpManager : ObservableObject {
             
             let userDefaults = UserDefaults.standard
             
-            let authtoken = response.allHeaderFields["Set-Cookie"] as! String;
-            
-            userDefaults.set(authtoken, forKey: "authstring");
-            
             if response.statusCode == 200 {
+                
+                let authtoken = response.allHeaderFields["Set-Cookie"] as! String;
+                
+                userDefaults.set(authtoken, forKey: "authstring");
+                
                 localStatus = .Success
             } else {
                 localStatus = .Error

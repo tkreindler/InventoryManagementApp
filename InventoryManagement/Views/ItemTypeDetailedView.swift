@@ -77,6 +77,7 @@ struct ItemTypeDetailedView: View {
 struct NewItemView: View {
     // strings for text fields
     @State private var pricePaidBySeller = "$0.00"
+    @State private var taxCostToSeller = "$0.00"
     @State private var shippingCostToSeller = "$0.00"
     @State private var orderNumber = ""
     @State private var itemCount = "1"
@@ -107,6 +108,9 @@ struct NewItemView: View {
                 Spacer()
                 Button(action: {
                     // parse info into item
+                    guard let itemCount = unseparatedFormatter.number(from: self.itemCount)?.intValue, itemCount > 0 else {
+                        return
+                    }
                     guard let pricePaidBySeller = parseMoney(string: self.pricePaidBySeller) else {
                         self.pricePaidBySellerColor = UIColor.red
                         return
@@ -115,11 +119,11 @@ struct NewItemView: View {
                         self.shippingCostToSellerColor = UIColor.red
                         return
                     }
-                    guard let itemCount = unseparatedFormatter.number(from: self.itemCount)?.intValue, itemCount > 0 else {
+                    guard let taxCostToSeller = parseMoney(string: self.taxCostToSeller) else {
                         return
                     }
                     
-                    let item = ItemNoId(itemTypeUPC: parent.upc, qrCode: nil, itemStatus: .ordered, pricePaidBySeller: pricePaidBySeller, shippingCostToSeller: shippingCostToSeller, shippingCostToBuyer: 0, fees: 0, otherExpenses: 0, shippingPaidByBuyer: 0, pricePaidByBuyer: 0, orderNumber: self.orderNumber.isEmpty ? nil : self.orderNumber)
+                    let item = ItemNoId(itemTypeUPC: parent.upc, qrCode: nil, itemStatus: .ordered, pricePaidBySeller: pricePaidBySeller / Decimal(itemCount), taxPaidBySeller: taxCostToSeller / Decimal(itemCount), shippingCostToSeller: shippingCostToSeller / Decimal(itemCount), shippingCostToBuyer: 0, fees: 0, otherExpenses: 0, shippingPaidByBuyer: 0, pricePaidByBuyer: 0, orderNumber: self.orderNumber.isEmpty ? nil : self.orderNumber)
                     
                     let items = Array(repeating: item, count: itemCount)
                     
@@ -150,7 +154,7 @@ struct NewItemView: View {
             ScrollView {
                 Section(header: Text("Expenses").font(.system(size: 20))) {
                     HStack {
-                        Text("Price we paid:")
+                        Text("Total price we paid:")
                         Spacer()
                         TextField("test", text: $pricePaidBySeller)
                             .keyboardType(.decimalPad)
@@ -158,7 +162,15 @@ struct NewItemView: View {
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                     }
                     HStack {
-                        Text("Shipping we paid to get the item:")
+                        Text("Total tax we paid:")
+                        Spacer()
+                        TextField("test", text: $taxCostToSeller)
+                            .keyboardType(.decimalPad)
+                            .multilineTextAlignment(.trailing)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                    }
+                    HStack {
+                        Text("Shipping we paid to get the items:")
                         Spacer()
                         TextField("test", text: $shippingCostToSeller)
                             .keyboardType(.decimalPad)

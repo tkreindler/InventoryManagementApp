@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import CodeScanner
 
 struct ScannerTabView: View {
     var httpManager: HttpManager

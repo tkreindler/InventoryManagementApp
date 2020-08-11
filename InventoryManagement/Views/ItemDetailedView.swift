@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import CodeScanner
 
 struct ItemDetailedView: View {
     private var httpManager: HttpManager
@@ -84,6 +83,10 @@ struct ItemDetailedView: View {
         Section(header: Text("Expenses")) {
             HStack {
                 Text("Price we paid: \(item.pricePaidBySeller.formattedAsMoney)")
+                Spacer()
+            }
+            HStack {
+                Text("Tax we paid: \(item.taxPaidBySeller.formattedAsMoney)")
                 Spacer()
             }
             HStack {
@@ -173,6 +176,7 @@ struct ItemDetailedView: View {
 struct EditingItemView: View {
     // strings for text fields
     @State private var pricePaidBySeller = ""
+    @State private var taxPaidBySeller = ""
     @State private var shippingCostToSeller = ""
     @State private var shippingCostToBuyer = ""
     @State private var fees = ""
@@ -243,8 +247,11 @@ struct EditingItemView: View {
                         self.itemTypeUPCColor = UIColor.red
                         return
                     }
+                    guard let taxPaidBySeller = parseMoney(string: self.taxPaidBySeller) else {
+                        return
+                    }
                     
-                    let item = ItemNoId(itemTypeUPC: itemTypeUPC, qrCode: self.item.qrCode, itemStatus: self.item.itemStatus, pricePaidBySeller: pricePaidBySeller, shippingCostToSeller: shippingCostToSeller, shippingCostToBuyer: shippingCostToBuyer, fees: fees, otherExpenses: otherExpenses, shippingPaidByBuyer: shippingPaidByBuyer, pricePaidByBuyer: pricePaidByBuyer, orderNumber: self.orderNumber.isEmpty ? nil : self.orderNumber)
+                    let item = ItemNoId(itemTypeUPC: itemTypeUPC, qrCode: self.item.qrCode, itemStatus: self.item.itemStatus, pricePaidBySeller: pricePaidBySeller, taxPaidBySeller: taxPaidBySeller, shippingCostToSeller: shippingCostToSeller, shippingCostToBuyer: shippingCostToBuyer, fees: fees, otherExpenses: otherExpenses, shippingPaidByBuyer: shippingPaidByBuyer, pricePaidByBuyer: pricePaidByBuyer, orderNumber: self.orderNumber.isEmpty ? nil : self.orderNumber)
                     
                     self.httpManager.putItem(id: self.item.id, itemNoId: item) {
                         responseStatus in
@@ -275,6 +282,14 @@ struct EditingItemView: View {
                         Text("Price we paid:")
                         Spacer()
                         TextField("test", text: $pricePaidBySeller)
+                            .keyboardType(.decimalPad)
+                            .multilineTextAlignment(.trailing)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                    }
+                    HStack {
+                        Text("Tax we paid:")
+                        Spacer()
+                        TextField("test", text: $taxPaidBySeller)
                             .keyboardType(.decimalPad)
                             .multilineTextAlignment(.trailing)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -377,6 +392,7 @@ struct EditingItemView: View {
             self.pricePaidByBuyer = self.item.pricePaidByBuyer.formattedAsMoney
             self.shippingPaidByBuyer = self.item.shippingPaidByBuyer.formattedAsMoney
             self.itemTypeUPC = self.item.itemTypeUPC.formattedAsUPC
+            self.taxPaidBySeller = self.item.taxPaidBySeller.formattedAsMoney
         }
         .onReceive(keyboardHeightPublisher) {
             keyboardHeight in
@@ -390,7 +406,7 @@ struct ItemDetailedView_Previews: PreviewProvider {
     static var previews: some View {
         let httpManager = HttpManager()
         httpManager.postAuth(username: DebugLoginInfo.username, password: DebugLoginInfo.password)
-        let item = Item(id: 127, itemTypeUPC: 103846728399, qrCode: nil, itemStatus: .ordered, pricePaidBySeller: 23, shippingCostToSeller: 1, shippingCostToBuyer: 43, fees: 3, otherExpenses: 7, shippingPaidByBuyer: 43, pricePaidByBuyer: 343, orderNumber: nil)
+        let item = Item(id: 127, itemTypeUPC: 103846728399, qrCode: nil, itemStatus: .ordered, pricePaidBySeller: 23, taxPaidBySeller: 0, shippingCostToSeller: 1, shippingCostToBuyer: 43, fees: 3, otherExpenses: 7, shippingPaidByBuyer: 43, pricePaidByBuyer: 343, orderNumber: nil)
         let view = ItemDetailedView(item: item, httpManager: httpManager, parent: ItemType(name: "test", upc: 10238347))
         
         return NavigationView {
