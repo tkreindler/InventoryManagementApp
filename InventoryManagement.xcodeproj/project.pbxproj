@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6ACC65F824E2344D00F5ACF8 /* EditingTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACC65F724E2344D00F5ACF8 /* EditingTypeView.swift */; };
 		6ACCD2D424E219F70015DEB7 /* CarBode in Frameworks */ = {isa = PBXBuildFile; productRef = 6ACCD2D324E219F70015DEB7 /* CarBode */; };
 		6ACCD2D624E221030015DEB7 /* NewItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACCD2D524E221030015DEB7 /* NewItemView.swift */; };
 		6ACCD2D824E2248E0015DEB7 /* NewTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACCD2D724E2248E0015DEB7 /* NewTypeView.swift */; };
@@ -65,6 +66,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6ACC65F724E2344D00F5ACF8 /* EditingTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingTypeView.swift; sourceTree = "<group>"; };
 		6ACCD2D524E221030015DEB7 /* NewItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemView.swift; sourceTree = "<group>"; };
 		6ACCD2D724E2248E0015DEB7 /* NewTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTypeView.swift; sourceTree = "<group>"; };
 		A22E02D624C8C1DF0028F39F /* ItemDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailedView.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				A2C362DC24D77D4F00707BAD /* OtherView.swift */,
 				6ACCD2D524E221030015DEB7 /* NewItemView.swift */,
 				6ACCD2D724E2248E0015DEB7 /* NewTypeView.swift */,
+				6ACC65F724E2344D00F5ACF8 /* EditingTypeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 				A265BD3624C768980096DD08 /* KeyboardAwareModifier.swift in Sources */,
 				A2BA544124D0F26300FC2A87 /* AsynchronousOperation.swift in Sources */,
 				A284015624D099B90060DA0B /* KeychainWrapper.swift in Sources */,
+				6ACC65F824E2344D00F5ACF8 /* EditingTypeView.swift in Sources */,
 				A265BD3824C76DA80096DD08 /* ItemTypesView.swift in Sources */,
 				A2AF8DEE24C0F8B000BE3B4C /* SceneDelegate.swift in Sources */,
 				A2AF8DF024C0F8B000BE3B4C /* ContentView.swift in Sources */,

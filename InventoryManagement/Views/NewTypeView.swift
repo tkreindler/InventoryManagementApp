@@ -45,6 +45,11 @@ struct NewTypeView: View {
                     
                     let imageURL: String? = self.imageURL.isEmpty ? nil : self.imageURL
                     
+                    guard !self.name.isEmpty else {
+                        print("ItemType must have a name")
+                        return
+                    }
+                    
                     let newItemType = ItemType(name: self.name, upc: upc, imageURL: imageURL)
                     
                     self.httpManager.postItemType(itemType: newItemType) {

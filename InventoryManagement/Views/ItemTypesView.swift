@@ -20,7 +20,7 @@ struct ItemTypesView: View {
         NavigationView {
             List(itemTypes, id: \.upc) {
                 itemType in
-                NavigationLink(destination: ItemTypeDetailedView(httpManager: self.httpManager, itemType: itemType)) {
+                NavigationLink(destination: ItemTypeDetailedView(httpManager: self.httpManager, itemType: itemType, itemTypes: $itemTypes)) {
                     HStack {
                         Text(itemType.name)
                         Spacer()

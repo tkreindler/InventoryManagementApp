@@ -491,6 +491,44 @@ class HttpManager : ObservableObject {
         }.resume()
     }
     
+    /// send a put request to the item with a given id
+    func putItemType(upc: Int64, itemType: ItemType, sender: @escaping (Int) -> Void) {
+        let url = URL(string: "\(DebugLoginInfo.baseURL)/itemtypes/\(upc)")!
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        
+        // encode item body to JSON
+        let body = try! JSONEncoder().encode(itemType)
+        
+        request.httpBody = body
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        // send asynchronous http request
+        URLSession.shared.dataTask(with: request) { (_, response, _) in
+            // unwrap all values and do assertions
+            guard let response = response as? HTTPURLResponse else {
+                return
+            }
+            
+            guard response.statusCode != 401 else {
+                print("Received unauthorized response, going back to login page.")
+
+                // switch back to main page
+                DispatchQueue.main.async {
+                    // set the login status
+                    self.loginStatus = .NotAttempted
+                    self.postAuth()
+                }
+                return
+            }
+            
+            // send value back to sender
+            sender(response.statusCode)
+            
+        }.resume()
+    }
+    
     /// send a get request to itemTypes
     func postItems(itemNoIds: [ItemNoId], sender: @escaping ([Int64]) -> Void) {
         let url = URL(string: "\(DebugLoginInfo.baseURL)/items").unsafelyUnwrapped

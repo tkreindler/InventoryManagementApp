@@ -11,13 +11,17 @@ import SwiftUI
 struct ItemTypeDetailedView: View {
     @State var items: [Item] = []
     var httpManager: HttpManager
-    var itemType: ItemType
+    @State var itemType: ItemType
+    
+    // for refreshing main page
+    @Binding var itemTypes: [ItemType]
     @Environment(\.presentationMode) var presentationMode
     
     @State var newItem: Item? = nil
     @State var isItemSelected = false
     
     @State var showingNewItemPopup = false
+    @State var showingEditItemPopup = false
     
     @ViewBuilder
     var body: some View {
@@ -27,9 +31,18 @@ struct ItemTypeDetailedView: View {
                 NavigationLink("Next page", destination: ItemDetailedView(item: self.newItem!, httpManager: self.httpManager, parent: self.itemType), isActive: self.$isItemSelected).hidden()
             }
             
-            HStack {
-                if self.itemType.imageURL != nil {
-                    SquareImage(url: itemType.imageURL, size: 128)
+            ZStack {
+                HStack {
+                    Spacer()
+                    NavigationLink(destination: EditingTypeView(showingEditTypePopup: $showingEditItemPopup, httpManager: httpManager, itemType: $itemType, itemTypes: $itemTypes), isActive: $showingEditItemPopup) {
+                        Text("Edit")
+                            .padding(.trailing)
+                    }
+                }
+                HStack {
+                    if self.itemType.imageURL != nil {
+                        SquareImage(url: itemType.imageURL, size: 128)
+                    }
                 }
             }
             
@@ -71,18 +84,5 @@ struct ItemTypeDetailedView: View {
             }
         )
         .padding(.top, 10)
-    }
-}
-
-struct ItemTypeDetailedView_Previews: PreviewProvider {
-    static var previews: some View {
-        let httpManager = HttpManager()
-        httpManager.postAuth(username: DebugLoginInfo.username, password: DebugLoginInfo.password)
-        let itemType = ItemType(name: "Lea", upc: 887961202007, imageURL: "https://images-na.ssl-images-amazon.com/images/I/71ctTzF9FfL._AC_SL1137_.jpg")
-        let view = ItemTypeDetailedView(httpManager: httpManager, itemType: itemType)
-        
-        return NavigationView {
-            NavigationLink("Next page", destination: view, isActive: .constant(true)).hidden()
-        }
     }
 }
