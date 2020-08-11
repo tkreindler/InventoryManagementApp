@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CarBode
 
 struct ScannerTabView: View {
     var httpManager: HttpManager
@@ -35,22 +36,21 @@ struct ScannerTabView: View {
                             .hidden()
                     }
                     if showingFocused == false {
-                        CodeScannerView(
-                            codeTypes: [.qr],
-                            completion: { result in
-                                if case let .success(code) = result {
-                                    self.httpManager.getItemByQR(qr: code) {
-                                        item in
-                                        self.httpManager.getItemType(upc: item.itemTypeUPC) {
-                                            parent in
-                                            self.selectedItem = item
-                                            self.showingFocused = true
-                                            self.selectedItemParent = parent
-                                        }
+                        CBScanner(supportBarcode: [.qr])
+                            .torchLight(isOn: true)
+                            .interval(delay: 2.5) //Event will trigger every 5 seconds
+                            .found() {
+                                code in
+                                self.httpManager.getItemByQR(qr: code) {
+                                    item in
+                                    self.httpManager.getItemType(upc: item.itemTypeUPC) {
+                                        parent in
+                                        self.selectedItem = item
+                                        self.showingFocused = true
+                                        self.selectedItemParent = parent
                                     }
                                 }
                             }
-                        )
                         .navigationBarHidden(true)
                     }
                 } else {

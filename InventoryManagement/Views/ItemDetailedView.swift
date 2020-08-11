@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CarBode
 
 struct ItemDetailedView: View {
     private var httpManager: HttpManager
@@ -141,33 +142,32 @@ struct ItemDetailedView: View {
     }
     
     var scannerSheet : some View {
-        CodeScannerView(
-            codeTypes: [.qr],
-            completion: { result in
-                if case let .success(code) = result {
-                    self.isPresentingScanner = false
-                    
-                    // create a copy
-                    let item = ItemNoId(item: self.item)
-                    
-                    item.qrCode = code
-                    item.itemStatus = .inStock
-                    
-                    self.httpManager.putItem(id: self.item.id, itemNoId: item) {
-                        responseStatus in
-                        if responseStatus / 100 == 2 {
-                            // success
-                            self.httpManager.getItem(id: self.item.id) {
-                                item in
-                                self.item = item
-                            }
-                        } else {
-                            print("Got unexpected error response on put \(responseStatus)")
+        CBScanner(supportBarcode: [.qr])
+            .torchLight(isOn: true)
+            .interval(delay: 2.5)
+            .found() {
+                code in
+                self.isPresentingScanner = false
+                
+                // create a copy
+                let item = ItemNoId(item: self.item)
+                
+                item.qrCode = code
+                item.itemStatus = .inStock
+                
+                self.httpManager.putItem(id: self.item.id, itemNoId: item) {
+                    responseStatus in
+                    if responseStatus / 100 == 2 {
+                        // success
+                        self.httpManager.getItem(id: self.item.id) {
+                            item in
+                            self.item = item
                         }
+                    } else {
+                        print("Got unexpected error response on put \(responseStatus)")
                     }
                 }
             }
-        )
     }
     
     
@@ -198,6 +198,8 @@ struct EditingItemView: View {
     @State private var orderNumberColor = UIColor.white
     
     @State private var keyboardHeight: CGFloat = 0
+    
+    @Environment(\.presentationMode) var presentationMode
     
     var httpManager: HttpManager
     @Binding var item: Item
@@ -369,7 +371,12 @@ struct EditingItemView: View {
                             responseStatus in
                             if responseStatus / 100 == 2 {
                                 DispatchQueue.main.async {
+                                    // go back to item type
+                                    // TODO this doesn't work
                                     self.editing = false
+                                    DispatchQueue.main.async {
+                                        self.presentationMode.wrappedValue.dismiss()
+                                    }
                                 }
                             } else {
                                 print("Error deleting item with status code \(responseStatus)")

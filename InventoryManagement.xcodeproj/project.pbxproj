@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6ACCD2D124E0ED7E0015DEB7 /* CodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACCD2D024E0ED7E0015DEB7 /* CodeScanner.swift */; };
+		6ACCD2D424E219F70015DEB7 /* CarBode in Frameworks */ = {isa = PBXBuildFile; productRef = 6ACCD2D324E219F70015DEB7 /* CarBode */; };
 		A22E02D724C8C1DF0028F39F /* ItemDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22E02D624C8C1DF0028F39F /* ItemDetailedView.swift */; };
 		A25EE56B24C8A3C800D4084D /* TabbedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25EE56A24C8A3C800D4084D /* TabbedView.swift */; };
 		A25EE56F24C8B3D200D4084D /* FormatNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25EE56E24C8B3D200D4084D /* FormatNumbers.swift */; };
@@ -63,7 +63,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6ACCD2D024E0ED7E0015DEB7 /* CodeScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeScanner.swift; sourceTree = "<group>"; };
 		A22E02D624C8C1DF0028F39F /* ItemDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailedView.swift; sourceTree = "<group>"; };
 		A25EE56A24C8A3C800D4084D /* TabbedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbedView.swift; sourceTree = "<group>"; };
 		A25EE56E24C8B3D200D4084D /* FormatNumbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatNumbers.swift; sourceTree = "<group>"; };
@@ -114,6 +113,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A265BD4024C77BA30096DD08 /* SDWebImageSwiftUI in Frameworks */,
+				6ACCD2D424E219F70015DEB7 /* CarBode in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,7 +187,6 @@
 				A2BA544424D0F28B00FC2A87 /* ImgurAnonymousAPI */,
 				A284015524D099B90060DA0B /* KeychainWrapper.swift */,
 				A284015724D099CE0060DA0B /* KeychainItemAccessibility.swift */,
-				6ACCD2D024E0ED7E0015DEB7 /* CodeScanner.swift */,
 			);
 			path = Imported;
 			sourceTree = "<group>";
@@ -289,6 +288,7 @@
 			name = InventoryManagement;
 			packageProductDependencies = (
 				A265BD3F24C77BA30096DD08 /* SDWebImageSwiftUI */,
+				6ACCD2D324E219F70015DEB7 /* CarBode */,
 			);
 			productName = InventoryManagement;
 			productReference = A2AF8DE824C0F8B000BE3B4C /* InventoryManagement.app */;
@@ -364,6 +364,7 @@
 			mainGroup = A2AF8DDF24C0F8B000BE3B4C;
 			packageReferences = (
 				A265BD3E24C77BA30096DD08 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				6ACCD2D224E219F70015DEB7 /* XCRemoteSwiftPackageReference "CarBode-Barcode-Scanner-For-SwiftUI" */,
 			);
 			productRefGroup = A2AF8DE924C0F8B000BE3B4C /* Products */;
 			projectDirPath = "";
@@ -423,7 +424,6 @@
 				A27C9B2F24C7464300B0582B /* Item.swift in Sources */,
 				A265BD3624C768980096DD08 /* KeyboardAwareModifier.swift in Sources */,
 				A2BA544124D0F26300FC2A87 /* AsynchronousOperation.swift in Sources */,
-				6ACCD2D124E0ED7E0015DEB7 /* CodeScanner.swift in Sources */,
 				A284015624D099B90060DA0B /* KeychainWrapper.swift in Sources */,
 				A265BD3824C76DA80096DD08 /* ItemTypesView.swift in Sources */,
 				A2AF8DEE24C0F8B000BE3B4C /* SceneDelegate.swift in Sources */,
@@ -772,6 +772,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6ACCD2D224E219F70015DEB7 /* XCRemoteSwiftPackageReference "CarBode-Barcode-Scanner-For-SwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/heart/CarBode-Barcode-Scanner-For-SwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.3;
+			};
+		};
 		A265BD3E24C77BA30096DD08 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
@@ -783,6 +791,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6ACCD2D324E219F70015DEB7 /* CarBode */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6ACCD2D224E219F70015DEB7 /* XCRemoteSwiftPackageReference "CarBode-Barcode-Scanner-For-SwiftUI" */;
+			productName = CarBode;
+		};
 		A265BD3F24C77BA30096DD08 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A265BD3E24C77BA30096DD08 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
