@@ -16,11 +16,6 @@ struct NewItemView: View {
     @State private var orderNumberToSeller = ""
     @State private var itemCount = ""
     
-    // colors for text fields
-    @State private var pricePaidBySellerColor = UIColor.white
-    @State private var shippingCostToSellerColor = UIColor.white
-    @State private var orderNumberColor = UIColor.white
-    
     @State private var keyboardHeight: CGFloat = 0
     
     var httpManager: HttpManager
@@ -46,18 +41,16 @@ struct NewItemView: View {
                         return
                     }
                     guard let pricePaidBySeller = self.pricePaidBySeller.isEmpty ? 0 : parseMoney(string: self.pricePaidBySeller) else {
-                        self.pricePaidBySellerColor = UIColor.red
                         return
                     }
                     guard let shippingCostToSeller = self.shippingCostToSeller.isEmpty ? 0 : parseMoney(string: self.shippingCostToSeller) else {
-                        self.shippingCostToSellerColor = UIColor.red
                         return
                     }
                     guard let taxCostToSeller = self.taxCostToSeller.isEmpty ? 0 : parseMoney(string: self.taxCostToSeller) else {
                         return
                     }
                     
-                    let orderNumber = self.orderNumberToSeller.isEmpty ? nil : self.orderNumberToSeller
+                    let orderNumberToSeller = self.orderNumberToSeller.isEmpty ? nil : self.orderNumberToSeller
                     
                     let item = ItemNoId(itemTypeUPC: parent.upc, qrCode: nil, itemStatus: .ordered, pricePaidBySeller: pricePaidBySeller / Decimal(itemCount), taxPaidBySeller: taxCostToSeller / Decimal(itemCount), shippingCostToSeller: shippingCostToSeller / Decimal(itemCount), shippingCostToBuyer: 0, fees: 0, otherExpenses: 0, shippingPaidByBuyer: 0, pricePaidByBuyer: 0, orderNumberToSeller: orderNumberToSeller, orderNumberToBuyer: nil)
                     

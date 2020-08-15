@@ -22,17 +22,6 @@ struct EditingItemView: View {
     @State private var orderNumberToSeller = ""
     @State private var orderNumberToBuyer = ""
     
-    // colors for text fields
-    @State private var pricePaidBySellerColor = UIColor.white
-    @State private var shippingCostToSellerColor = UIColor.white
-    @State private var shippingCostToBuyerColor = UIColor.white
-    @State private var feesColor = UIColor.white
-    @State private var otherExpensesColor = UIColor.white
-    @State private var pricePaidByBuyerColor = UIColor.white
-    @State private var shippingPaidByBuyerColor = UIColor.white
-    @State private var itemTypeUPCColor = UIColor.white
-    @State private var orderNumberColor = UIColor.white
-    
     @State private var keyboardHeight: CGFloat = 0
     
     @Environment(\.presentationMode) var presentationMode
@@ -54,35 +43,27 @@ struct EditingItemView: View {
                 Button(action: {
                     // parse info into item
                     guard let pricePaidBySeller = parseMoney(string: self.pricePaidBySeller) else {
-                        self.pricePaidBySellerColor = UIColor.red
                         return
                     }
                     guard let shippingCostToSeller = parseMoney(string: self.shippingCostToSeller) else {
-                        self.shippingCostToSellerColor = UIColor.red
                         return
                     }
                     guard let shippingCostToBuyer = parseMoney(string: self.shippingCostToBuyer) else {
-                        self.shippingCostToBuyerColor = UIColor.red
                         return
                     }
                     guard let fees = parseMoney(string: self.fees) else {
-                        self.feesColor = UIColor.red
                         return
                     }
                     guard let otherExpenses = parseMoney(string: self.otherExpenses) else {
-                        self.otherExpensesColor = UIColor.red
                         return
                     }
                     guard let pricePaidByBuyer = parseMoney(string: self.pricePaidByBuyer) else {
-                        self.pricePaidByBuyerColor = UIColor.red
                         return
                     }
                     guard let shippingPaidByBuyer = parseMoney(string: self.shippingPaidByBuyer) else {
-                        self.shippingPaidByBuyerColor = UIColor.red
                         return
                     }
                     guard let itemTypeUPC = unseparatedFormatter.number(from: self.itemTypeUPC)?.int64Value else {
-                        self.itemTypeUPCColor = UIColor.red
                         return
                     }
                     guard let taxPaidBySeller = parseMoney(string: self.taxPaidBySeller) else {
