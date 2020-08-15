@@ -18,10 +18,16 @@ struct OrdersView: View {
                 TextField("test", text: $orderNumber)
                     .multilineTextAlignment(.trailing)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                NavigationLink(destination: OrderDetailedView(httpManager: httpManager, orderNumber: orderNumber)) {
-                    Text("Go")
+                    .padding(.bottom)
+                NavigationLink(destination: OrderDetailedView(httpManager: httpManager, orderNumber: orderNumber, useOrderToSeller: true)) {
+                    Text("Search by Order Number to Seller")
+                }
+                    .padding(.bottom)
+                NavigationLink(destination: OrderDetailedView(httpManager: httpManager, orderNumber: orderNumber, useOrderToSeller: false)) {
+                    Text("Search by Order Number to Buyer")
                 }
             }
+            .padding()
             .navigationBarHidden(true)
         }
     }
@@ -32,6 +38,7 @@ struct OrderDetailedView: View {
     @State var items: [(Item, ItemType)] = []
     var httpManager: HttpManager
     var orderNumber: String
+    var useOrderToSeller: Bool
     
     @ViewBuilder
     var body: some View {
@@ -56,7 +63,7 @@ struct OrderDetailedView: View {
                 self.httpManager.getItemTypes() {
                     itemTypes in
                     let dict = Dictionary(uniqueKeysWithValues: itemTypes.map{ ($0.upc, $0) })
-                    self.httpManager.getItemsByOrder(orderNumber: orderNumber, sender: {
+                    self.httpManager.getItemsByOrder(orderNumber: orderNumber, useOrderToSeller: self.useOrderToSeller, sender: {
                         items in
                         self.items = items.map({
                             item in

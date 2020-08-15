@@ -49,6 +49,9 @@ let unseparatedFormatter: NumberFormatter = {
 
 // helper function to try many different parsers
 func parseMoney(string: String) -> Decimal? {
+    if string.isEmpty {
+        return 0
+    }
     if let x = currencyFormatter.number(from: string)?.decimalValue {
         return x
     }

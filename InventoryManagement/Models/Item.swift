@@ -9,9 +9,9 @@
 import Foundation
 
 class Item : ItemNoId {
-    init(id: Int64, itemTypeUPC: Int64, qrCode: String?, itemStatus: ItemStatus, pricePaidBySeller: Decimal, taxPaidBySeller: Decimal, shippingCostToSeller: Decimal, shippingCostToBuyer: Decimal, fees: Decimal, otherExpenses: Decimal, shippingPaidByBuyer: Decimal, pricePaidByBuyer: Decimal, orderNumber: String?) {
+    init(id: Int64, itemTypeUPC: Int64, qrCode: String?, itemStatus: ItemStatus, pricePaidBySeller: Decimal, taxPaidBySeller: Decimal, shippingCostToSeller: Decimal, shippingCostToBuyer: Decimal, fees: Decimal, otherExpenses: Decimal, shippingPaidByBuyer: Decimal, pricePaidByBuyer: Decimal, orderNumberToSeller: String?, orderNumberToBuyer: String?) {
         self.id = id
-        super.init(itemTypeUPC: itemTypeUPC, qrCode: qrCode, itemStatus: itemStatus, pricePaidBySeller: pricePaidBySeller, taxPaidBySeller: taxPaidBySeller, shippingCostToSeller: shippingCostToSeller, shippingCostToBuyer: shippingCostToBuyer, fees: fees, otherExpenses: otherExpenses, shippingPaidByBuyer: shippingPaidByBuyer, pricePaidByBuyer: pricePaidByBuyer, orderNumber: orderNumber)
+        super.init(itemTypeUPC: itemTypeUPC, qrCode: qrCode, itemStatus: itemStatus, pricePaidBySeller: pricePaidBySeller, taxPaidBySeller: taxPaidBySeller, shippingCostToSeller: shippingCostToSeller, shippingCostToBuyer: shippingCostToBuyer, fees: fees, otherExpenses: otherExpenses, shippingPaidByBuyer: shippingPaidByBuyer, pricePaidByBuyer: pricePaidByBuyer, orderNumberToSeller: orderNumberToSeller, orderNumberToBuyer: orderNumberToBuyer)
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -41,7 +41,7 @@ class Item : ItemNoId {
 }
 
 class ItemNoId : Codable {
-    init(itemTypeUPC: Int64, qrCode: String?, itemStatus: ItemStatus, pricePaidBySeller: Decimal, taxPaidBySeller: Decimal, shippingCostToSeller: Decimal, shippingCostToBuyer: Decimal, fees: Decimal, otherExpenses: Decimal, shippingPaidByBuyer: Decimal, pricePaidByBuyer: Decimal, orderNumber: String?) {
+    init(itemTypeUPC: Int64, qrCode: String?, itemStatus: ItemStatus, pricePaidBySeller: Decimal, taxPaidBySeller: Decimal, shippingCostToSeller: Decimal, shippingCostToBuyer: Decimal, fees: Decimal, otherExpenses: Decimal, shippingPaidByBuyer: Decimal, pricePaidByBuyer: Decimal, orderNumberToSeller: String?, orderNumberToBuyer: String?) {
         self.itemTypeUPC = itemTypeUPC
         self.qrCode = qrCode
         self.itemStatus = itemStatus
@@ -52,21 +52,23 @@ class ItemNoId : Codable {
         self.otherExpenses = otherExpenses
         self.shippingPaidByBuyer = shippingPaidByBuyer
         self.pricePaidByBuyer = pricePaidByBuyer
-        self.orderNumber = orderNumber
+        self.orderNumberToSeller = orderNumberToSeller
+        self.orderNumberToBuyer = orderNumberToBuyer
         self.taxPaidBySeller = taxPaidBySeller
     }
     
     convenience init(itemTypeUPC: Int64) {
-        self.init(itemTypeUPC: itemTypeUPC, qrCode: nil, itemStatus: .ordered, pricePaidBySeller: 0, taxPaidBySeller: 0, shippingCostToSeller: 0, shippingCostToBuyer: 0, fees: 0, otherExpenses: 0, shippingPaidByBuyer: 0, pricePaidByBuyer: 0, orderNumber: nil)
+        self.init(itemTypeUPC: itemTypeUPC, qrCode: nil, itemStatus: .ordered, pricePaidBySeller: 0, taxPaidBySeller: 0, shippingCostToSeller: 0, shippingCostToBuyer: 0, fees: 0, otherExpenses: 0, shippingPaidByBuyer: 0, pricePaidByBuyer: 0, orderNumberToSeller: nil, orderNumberToBuyer: nil)
     }
     
     convenience init(item: Item) {
-        self.init(itemTypeUPC: item.itemTypeUPC, qrCode: item.qrCode, itemStatus: item.itemStatus, pricePaidBySeller: item.pricePaidBySeller, taxPaidBySeller: item.taxPaidBySeller, shippingCostToSeller: item.shippingCostToSeller, shippingCostToBuyer: item.shippingCostToBuyer, fees: item.fees, otherExpenses: item.otherExpenses, shippingPaidByBuyer: item.shippingPaidByBuyer, pricePaidByBuyer: item.pricePaidByBuyer, orderNumber: nil)
+        self.init(itemTypeUPC: item.itemTypeUPC, qrCode: item.qrCode, itemStatus: item.itemStatus, pricePaidBySeller: item.pricePaidBySeller, taxPaidBySeller: item.taxPaidBySeller, shippingCostToSeller: item.shippingCostToSeller, shippingCostToBuyer: item.shippingCostToBuyer, fees: item.fees, otherExpenses: item.otherExpenses, shippingPaidByBuyer: item.shippingPaidByBuyer, pricePaidByBuyer: item.pricePaidByBuyer, orderNumberToSeller: nil, orderNumberToBuyer: nil)
     }
     
     var itemTypeUPC: Int64
     var qrCode: String?
-    var orderNumber: String?
+    var orderNumberToSeller: String?
+    var orderNumberToBuyer: String?
     var itemStatus: ItemStatus
     
     var pricePaidBySeller: Decimal

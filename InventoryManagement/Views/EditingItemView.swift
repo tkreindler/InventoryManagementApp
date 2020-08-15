@@ -19,7 +19,8 @@ struct EditingItemView: View {
     @State private var pricePaidByBuyer = ""
     @State private var shippingPaidByBuyer = ""
     @State private var itemTypeUPC = ""
-    @State private var orderNumber = ""
+    @State private var orderNumberToSeller = ""
+    @State private var orderNumberToBuyer = ""
     
     // colors for text fields
     @State private var pricePaidBySellerColor = UIColor.white
@@ -88,7 +89,13 @@ struct EditingItemView: View {
                         return
                     }
                     
-                    let item = ItemNoId(itemTypeUPC: itemTypeUPC, qrCode: self.item.qrCode, itemStatus: self.item.itemStatus, pricePaidBySeller: pricePaidBySeller, taxPaidBySeller: taxPaidBySeller, shippingCostToSeller: shippingCostToSeller, shippingCostToBuyer: shippingCostToBuyer, fees: fees, otherExpenses: otherExpenses, shippingPaidByBuyer: shippingPaidByBuyer, pricePaidByBuyer: pricePaidByBuyer, orderNumber: self.orderNumber.isEmpty ? nil : self.orderNumber)
+                    let orderNumberToSeller = self.orderNumberToSeller.isEmpty ? nil : self.orderNumberToSeller
+                    
+                    let orderNumberToBuyer = self.orderNumberToBuyer.isEmpty ? nil : self.orderNumberToBuyer
+                    
+                    
+                    let item = ItemNoId(itemTypeUPC: itemTypeUPC, qrCode: self.item.qrCode, itemStatus: self.item.itemStatus, pricePaidBySeller: pricePaidBySeller, taxPaidBySeller: taxPaidBySeller, shippingCostToSeller: shippingCostToSeller, shippingCostToBuyer: shippingCostToBuyer, fees: fees, otherExpenses: otherExpenses, shippingPaidByBuyer: shippingPaidByBuyer, pricePaidByBuyer: pricePaidByBuyer, orderNumberToSeller: orderNumberToSeller,
+                                        orderNumberToBuyer: orderNumberToBuyer)
                     
                     self.httpManager.putItem(id: self.item.id, itemNoId: item) {
                         responseStatus in
@@ -192,10 +199,16 @@ struct EditingItemView: View {
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                     }
                     HStack {
-                        Text("Order Number:")
+                        Text("Order Number to seller:")
                         Spacer()
-                        TextField("test", text: $orderNumber)
-                            .keyboardType(.decimalPad)
+                        TextField("test", text: $orderNumberToSeller)
+                            .multilineTextAlignment(.trailing)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                    }
+                    HStack {
+                        Text("Order Number to buyer:")
+                        Spacer()
+                        TextField("test", text: $orderNumberToBuyer)
                             .multilineTextAlignment(.trailing)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                     }
@@ -235,6 +248,8 @@ struct EditingItemView: View {
             self.shippingPaidByBuyer = self.item.shippingPaidByBuyer.formattedAsMoney
             self.itemTypeUPC = self.item.itemTypeUPC.formattedAsUPC
             self.taxPaidBySeller = self.item.taxPaidBySeller.formattedAsMoney
+            self.orderNumberToSeller = self.item.orderNumberToSeller ?? ""
+            self.orderNumberToBuyer = self.item.orderNumberToBuyer ?? ""
         }
         .onReceive(keyboardHeightPublisher) {
             keyboardHeight in

@@ -135,7 +135,11 @@ struct ItemDetailedView: View {
                 Spacer()
             }
             HStack {
-                Text("Order number: \(item.orderNumber ?? "")")
+                Text("Order number to seller: \(item.orderNumberToSeller ?? "")")
+                Spacer()
+            }
+            HStack {
+                Text("Order number to buyer: \(item.orderNumberToBuyer ?? "")")
                 Spacer()
             }
         }
@@ -176,7 +180,7 @@ struct ItemDetailedView_Previews: PreviewProvider {
     static var previews: some View {
         let httpManager = HttpManager()
         httpManager.postAuth(username: DebugLoginInfo.username, password: DebugLoginInfo.password)
-        let item = Item(id: 127, itemTypeUPC: 103846728399, qrCode: nil, itemStatus: .ordered, pricePaidBySeller: 23, taxPaidBySeller: 0, shippingCostToSeller: 1, shippingCostToBuyer: 43, fees: 3, otherExpenses: 7, shippingPaidByBuyer: 43, pricePaidByBuyer: 343, orderNumber: nil)
+        let item = Item(id: 127, itemTypeUPC: 103846728399, qrCode: nil, itemStatus: .ordered, pricePaidBySeller: 23, taxPaidBySeller: 0, shippingCostToSeller: 1, shippingCostToBuyer: 43, fees: 3, otherExpenses: 7, shippingPaidByBuyer: 43, pricePaidByBuyer: 343, orderNumberToSeller: nil, orderNumberToBuyer: nil)
         let view = ItemDetailedView(item: item, httpManager: httpManager, parent: ItemType(name: "test", upc: 10238347))
         
         return NavigationView {

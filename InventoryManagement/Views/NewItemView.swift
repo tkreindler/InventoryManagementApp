@@ -13,7 +13,7 @@ struct NewItemView: View {
     @State private var pricePaidBySeller = ""
     @State private var taxCostToSeller = ""
     @State private var shippingCostToSeller = ""
-    @State private var orderNumber = ""
+    @State private var orderNumberToSeller = ""
     @State private var itemCount = ""
     
     // colors for text fields
@@ -57,9 +57,9 @@ struct NewItemView: View {
                         return
                     }
                     
-                    let orderNumber = self.orderNumber.isEmpty ? nil : self.orderNumber
+                    let orderNumber = self.orderNumberToSeller.isEmpty ? nil : self.orderNumberToSeller
                     
-                    let item = ItemNoId(itemTypeUPC: parent.upc, qrCode: nil, itemStatus: .ordered, pricePaidBySeller: pricePaidBySeller / Decimal(itemCount), taxPaidBySeller: taxCostToSeller / Decimal(itemCount), shippingCostToSeller: shippingCostToSeller / Decimal(itemCount), shippingCostToBuyer: 0, fees: 0, otherExpenses: 0, shippingPaidByBuyer: 0, pricePaidByBuyer: 0, orderNumber: orderNumber)
+                    let item = ItemNoId(itemTypeUPC: parent.upc, qrCode: nil, itemStatus: .ordered, pricePaidBySeller: pricePaidBySeller / Decimal(itemCount), taxPaidBySeller: taxCostToSeller / Decimal(itemCount), shippingCostToSeller: shippingCostToSeller / Decimal(itemCount), shippingCostToBuyer: 0, fees: 0, otherExpenses: 0, shippingPaidByBuyer: 0, pricePaidByBuyer: 0, orderNumberToSeller: orderNumberToSeller, orderNumberToBuyer: nil)
                     
                     let items = Array(repeating: item, count: itemCount)
                     
@@ -117,7 +117,7 @@ struct NewItemView: View {
                     HStack {
                         Text("Order Number:")
                         Spacer()
-                        TextField("n/a", text: $orderNumber)
+                        TextField("n/a", text: $orderNumberToSeller)
                             .keyboardType(.decimalPad)
                             .multilineTextAlignment(.trailing)
                             .textFieldStyle(RoundedBorderTextFieldStyle())

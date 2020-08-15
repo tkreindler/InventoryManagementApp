@@ -408,8 +408,8 @@ class HttpManager : ObservableObject {
     }
     
     /// send a get request to itemTypes
-    func getItemsByOrder(orderNumber: String, sender: @escaping ([Item]) -> Void) {
-        let url = URL(string: "\(DebugLoginInfo.baseURL)/items/order/\(orderNumber.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)")!
+    func getItemsByOrder(orderNumber: String, useOrderToSeller: Bool, sender: @escaping ([Item]) -> Void) {
+        let url = useOrderToSeller ? URL(string: "\(DebugLoginInfo.baseURL)/items/ordertoseller/\(orderNumber.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)")! : URL(string: "\(DebugLoginInfo.baseURL)/items/ordertobuyer/\(orderNumber.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)")!
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
