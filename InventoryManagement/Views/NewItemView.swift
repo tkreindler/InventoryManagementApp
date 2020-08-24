@@ -111,7 +111,6 @@ struct NewItemView: View {
                         Text("Order Number:")
                         Spacer()
                         TextField("n/a", text: $orderNumberToSeller)
-                            .keyboardType(.decimalPad)
                             .multilineTextAlignment(.trailing)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                     }

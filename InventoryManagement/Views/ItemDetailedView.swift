@@ -14,6 +14,7 @@ struct ItemDetailedView: View {
     @State var item: Item
     @State var editing = false
     @State var isPresentingScanner = false
+    @State var isPresentingSeller = false
     var parent: ItemType
     
     init(item: Item, httpManager: HttpManager, parent: ItemType) {
@@ -60,6 +61,16 @@ struct ItemDetailedView: View {
                     }
                     .sheet(isPresented: $isPresentingScanner) {
                         self.scannerSheet
+                    }
+                    .buttonStyle(BorderlessButtonStyle())
+                } else if item.itemStatus == .inStock {
+                    Button(action: {
+                        self.isPresentingSeller = true
+                    }) {
+                        Text("Sell")
+                    }
+                    .sheet(isPresented: $isPresentingSeller) {
+                        SellItemView(item: $item, httpManager: httpManager, isPresentingSeller: $isPresentingSeller)
                     }
                     .buttonStyle(BorderlessButtonStyle())
                 }
@@ -174,6 +185,124 @@ struct ItemDetailedView: View {
     }
     
     
+}
+
+struct SellItemView: View {
+    @Binding var item: Item
+    var httpManager: HttpManager
+    
+    @Binding var isPresentingSeller: Bool
+    
+    @State var pricePaidByBuyer: String = ""
+    @State var shippingPaidByBuyer: String = ""
+    @State var shippingCostToBuyer: String = ""
+    @State var fees: String = ""
+    @State var orderNumber: String = ""
+    
+    @State var keyboardHeight: CGFloat = 0
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Button(action: {
+                    self.isPresentingSeller = false
+                }, label: {
+                    Text("Cancel")
+                })
+                .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
+                Spacer()
+                Button(action: {
+                    // parse info into item
+                    guard let pricePaidByBuyer = parseMoney(string: self.pricePaidByBuyer) else {
+                        return
+                    }
+                    guard let shippingPaidByBuyer = parseMoney(string: self.shippingPaidByBuyer) else {
+                        return
+                    }
+                    guard let shippingCostToBuyer = parseMoney(string: self.shippingCostToBuyer) else {
+                        return
+                    }
+                    guard let fees = parseMoney(string: self.fees) else {
+                        return
+                    }
+                    
+                    let orderNumberToBuyer = self.orderNumber.isEmpty ? nil : self.orderNumber
+                    
+                    let itemNoId = ItemNoId(itemTypeUPC: self.item.itemTypeUPC, qrCode: self.item.qrCode, itemStatus: .sold, pricePaidBySeller: self.item.pricePaidBySeller, taxPaidBySeller: self.item.taxPaidBySeller, shippingCostToSeller: self.item.shippingCostToSeller, shippingCostToBuyer: shippingCostToBuyer, fees: fees, otherExpenses: 0, shippingPaidByBuyer: shippingPaidByBuyer, pricePaidByBuyer: pricePaidByBuyer, orderNumberToSeller: self.item.orderNumberToSeller, orderNumberToBuyer: orderNumberToBuyer)
+                    
+                    self.httpManager.putItem(id: self.item.id, itemNoId: itemNoId) {
+                        responseStatus in
+                        if responseStatus / 100 == 2 {
+                            // success
+                            
+                            // get item from server to double check
+                            self.httpManager.getItem(id: self.item.id) {
+                                item in
+                                // update item and go back
+                                self.item = item
+                                self.isPresentingSeller = false
+                            }
+                        }
+                    }
+                }) {
+                    Text("Done")
+                }
+                .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
+            }
+            ScrollView {
+                Section(header: Text("Revenues").font(.system(size: 20))) {
+                    HStack {
+                        Text("Price buyer paid:")
+                        Spacer()
+                        TextField("0", text: $pricePaidByBuyer)
+                            .keyboardType(.decimalPad)
+                            .multilineTextAlignment(.trailing)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                    }
+                    HStack {
+                        Text("Shipping buyer paid:")
+                        Spacer()
+                        TextField("0", text: $shippingPaidByBuyer)
+                            .keyboardType(.decimalPad)
+                            .multilineTextAlignment(.trailing)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                    }
+                }
+                Section(header: Text("Expenses").font(.system(size: 20))) {
+                    HStack {
+                        Text("Shipping we paid:")
+                        Spacer()
+                        TextField("0", text: $shippingCostToBuyer)
+                            .keyboardType(.decimalPad)
+                            .multilineTextAlignment(.trailing)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                    }
+                    HStack {
+                        Text("Fees we paid:")
+                        Spacer()
+                        TextField("0", text: $fees)
+                            .keyboardType(.decimalPad)
+                            .multilineTextAlignment(.trailing)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                    }
+                }
+                Section(header: Text("Other").font(.system(size: 20)).padding(.top)) {
+                    HStack {
+                        Text("Order Number:")
+                        Spacer()
+                        TextField("n/a", text: $orderNumber)
+                            .multilineTextAlignment(.trailing)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                    }
+                }
+            }
+            .padding()
+            .onReceive(keyboardHeightPublisher) {
+                keyboardHeight in
+                self.keyboardHeight = keyboardHeight
+            }
+        }
+    }
 }
 
 struct ItemDetailedView_Previews: PreviewProvider {
