@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message AuthenticationModel {
+  string Username = 1;
+  string Password = 2;
+}
