@@ -78,10 +78,12 @@ class HttpManager : ObservableObject {
         }
         
         let url = URL(string: "\(DebugLoginInfo.baseURL)/authenticate").unsafelyUnwrapped
+        
+        var body = AuthenticationModel();
+        body.username = username;
+        body.password = password;
 
-        let body: [String: String] = ["username": username, "password": password]
-
-        let finalBody = try! JSONSerialization.data(withJSONObject: body)
+        let finalBody = try! body.serializedData()
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"

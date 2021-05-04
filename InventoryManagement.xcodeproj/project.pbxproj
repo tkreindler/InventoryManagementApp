@@ -15,6 +15,9 @@
 		6ACCD2D624E221030015DEB7 /* NewItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACCD2D524E221030015DEB7 /* NewItemView.swift */; };
 		6ACCD2D824E2248E0015DEB7 /* NewTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACCD2D724E2248E0015DEB7 /* NewTypeView.swift */; };
 		6AF684892641D51A009B0367 /* AuthenticationModel.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF684882641D51A009B0367 /* AuthenticationModel.pb.swift */; };
+		6AF6848C2641D610009B0367 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 6AF6848B2641D610009B0367 /* SwiftProtobuf */; };
+		6AF6848E2641D610009B0367 /* SwiftProtobufPluginLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 6AF6848D2641D610009B0367 /* SwiftProtobufPluginLibrary */; };
+		6AF684902641D6AA009B0367 /* AuthenticationModel.proto in Sources */ = {isa = PBXBuildFile; fileRef = 6AF6848F2641D6AA009B0367 /* AuthenticationModel.proto */; };
 		A22E02D724C8C1DF0028F39F /* ItemDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22E02D624C8C1DF0028F39F /* ItemDetailedView.swift */; };
 		A25EE56B24C8A3C800D4084D /* TabbedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25EE56A24C8A3C800D4084D /* TabbedView.swift */; };
 		A25EE56F24C8B3D200D4084D /* FormatNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25EE56E24C8B3D200D4084D /* FormatNumbers.swift */; };
@@ -67,6 +70,7 @@
 		6ACCD2D524E221030015DEB7 /* NewItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemView.swift; sourceTree = "<group>"; };
 		6ACCD2D724E2248E0015DEB7 /* NewTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTypeView.swift; sourceTree = "<group>"; };
 		6AF684882641D51A009B0367 /* AuthenticationModel.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationModel.pb.swift; sourceTree = "<group>"; };
+		6AF6848F2641D6AA009B0367 /* AuthenticationModel.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = AuthenticationModel.proto; sourceTree = "<group>"; };
 		A22E02D624C8C1DF0028F39F /* ItemDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailedView.swift; sourceTree = "<group>"; };
 		A25EE56A24C8A3C800D4084D /* TabbedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbedView.swift; sourceTree = "<group>"; };
 		A25EE56E24C8B3D200D4084D /* FormatNumbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatNumbers.swift; sourceTree = "<group>"; };
@@ -108,9 +112,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AF6848E2641D610009B0367 /* SwiftProtobufPluginLibrary in Frameworks */,
 				6A8DA92424E31D4000A89C15 /* ImgurAnonymousAPI in Frameworks */,
 				A265BD4024C77BA30096DD08 /* SDWebImageSwiftUI in Frameworks */,
 				6AAF0ACC24E321F200712F5E /* SwiftKeychainWrapper in Frameworks */,
+				6AF6848C2641D610009B0367 /* SwiftProtobuf in Frameworks */,
 				6ACCD2D424E219F70015DEB7 /* CarBode in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				6AF684882641D51A009B0367 /* AuthenticationModel.pb.swift */,
+				6AF6848F2641D6AA009B0367 /* AuthenticationModel.proto */,
 			);
 			path = ProtoModels;
 			sourceTree = "<group>";
@@ -259,6 +266,23 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXLegacyTarget section */
+		6A0326912641DB8400FEE56D /* Build Protobuf */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "";
+			buildConfigurationList = 6A0326942641DB8400FEE56D /* Build configuration list for PBXLegacyTarget "Build Protobuf" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = /Users/tristan/Projects/InventoryManagementApp/InventoryManagement;
+			dependencies = (
+			);
+			name = "Build Protobuf";
+			passBuildSettingsInEnvironment = 1;
+			productName = "Build Protobuf";
+		};
+/* End PBXLegacyTarget section */
+
 /* Begin PBXNativeTarget section */
 		A2AF8DE724C0F8B000BE3B4C /* InventoryManagement */ = {
 			isa = PBXNativeTarget;
@@ -278,6 +302,8 @@
 				6ACCD2D324E219F70015DEB7 /* CarBode */,
 				6A8DA92324E31D4000A89C15 /* ImgurAnonymousAPI */,
 				6AAF0ACB24E321F200712F5E /* SwiftKeychainWrapper */,
+				6AF6848B2641D610009B0367 /* SwiftProtobuf */,
+				6AF6848D2641D610009B0367 /* SwiftProtobufPluginLibrary */,
 			);
 			productName = InventoryManagement;
 			productReference = A2AF8DE824C0F8B000BE3B4C /* InventoryManagement.app */;
@@ -329,6 +355,9 @@
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Tristan Kreindler";
 				TargetAttributes = {
+					6A0326912641DB8400FEE56D = {
+						CreatedOnToolsVersion = 12.5;
+					};
 					A2AF8DE724C0F8B000BE3B4C = {
 						CreatedOnToolsVersion = 11.5;
 					};
@@ -356,6 +385,7 @@
 				6ACCD2D224E219F70015DEB7 /* XCRemoteSwiftPackageReference "CarBode-Barcode-Scanner-For-SwiftUI" */,
 				6A8DA92224E31D4000A89C15 /* XCRemoteSwiftPackageReference "ImgurAnonymousAPI" */,
 				6AAF0ACA24E321F200712F5E /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
+				6AF6848A2641D610009B0367 /* XCRemoteSwiftPackageReference "swift-protobuf" */,
 			);
 			productRefGroup = A2AF8DE924C0F8B000BE3B4C /* Products */;
 			projectDirPath = "";
@@ -364,6 +394,7 @@
 				A2AF8DE724C0F8B000BE3B4C /* InventoryManagement */,
 				A2AF8DFD24C0F8B100BE3B4C /* InventoryManagementTests */,
 				A2AF8E0824C0F8B100BE3B4C /* InventoryManagementUITests */,
+				6A0326912641DB8400FEE56D /* Build Protobuf */,
 			);
 		};
 /* End PBXProject section */
@@ -412,6 +443,7 @@
 				A25EE56F24C8B3D200D4084D /* FormatNumbers.swift in Sources */,
 				A2972D0F24C25CA6000B359A /* LoginStatus.swift in Sources */,
 				6ACC65FA24E23D7500F5ACF8 /* EditingItemView.swift in Sources */,
+				6AF684902641D6AA009B0367 /* AuthenticationModel.proto in Sources */,
 				A27C9B2F24C7464300B0582B /* Item.swift in Sources */,
 				A265BD3624C768980096DD08 /* KeyboardAwareModifier.swift in Sources */,
 				6ACC65F824E2344D00F5ACF8 /* EditingTypeView.swift in Sources */,
@@ -472,6 +504,33 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		6A0326922641DB8400FEE56D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 8AS9FHGX4M;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6A0326932641DB8400FEE56D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 8AS9FHGX4M;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		A2AF8E1024C0F8B100BE3B4C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -733,6 +792,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6A0326942641DB8400FEE56D /* Build configuration list for PBXLegacyTarget "Build Protobuf" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A0326922641DB8400FEE56D /* Debug */,
+				6A0326932641DB8400FEE56D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A2AF8DE324C0F8B000BE3B4C /* Build configuration list for PBXProject "InventoryManagement" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -796,6 +864,14 @@
 				minimumVersion = 1.4.3;
 			};
 		};
+		6AF6848A2641D610009B0367 /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-protobuf.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.16.0;
+			};
+		};
 		A265BD3E24C77BA30096DD08 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
@@ -821,6 +897,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6ACCD2D224E219F70015DEB7 /* XCRemoteSwiftPackageReference "CarBode-Barcode-Scanner-For-SwiftUI" */;
 			productName = CarBode;
+		};
+		6AF6848B2641D610009B0367 /* SwiftProtobuf */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6AF6848A2641D610009B0367 /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobuf;
+		};
+		6AF6848D2641D610009B0367 /* SwiftProtobufPluginLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6AF6848A2641D610009B0367 /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobufPluginLibrary;
 		};
 		A265BD3F24C77BA30096DD08 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
